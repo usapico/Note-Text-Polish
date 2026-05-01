@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>note text polish</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Markdown to note</p>
+          <h1>note投稿前の文章整形</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost" id="clearBtn" type="button" title="クリア">消去</button>
+          <button class="primary" id="copyBtn" type="button" title="コピー">コピー</button>
+        </div>
+      </header>
+
+      <div class="main-layout">
+        <section class="workspace" aria-label="編集エリア">
+          <div class="pane editor-pane">
+            <div class="pane-head">
+              <h2>貼り付け</h2>
+              <div class="meter" id="inputMeter">0字 / 0段落</div>
+            </div>
+            <textarea
+              id="sourceText"
+              spellcheck="true"
+              placeholder="Markdownの本文を貼り付け"
+            ></textarea>
+          </div>
+
+          <aside class="controls" aria-label="整形">
+            <div class="control-group">
+              <h2>整形</h2>
+              <button id="formatBtn" class="primary wide" type="button">note向け整形</button>
+              <button id="restoreBtn" class="ghost wide" type="button">元に戻す</button>
+            </div>
+
+            <div class="control-group">
+              <h2>読み味</h2>
+              <label class="range-row">
+                <span id="densityLabel">標準</span>
+                <input id="densityRange" type="range" min="-2" max="2" step="1" value="0" />
+              </label>
+              <div class="density-scale" aria-hidden="true">
+                <span>うさぴこ</span>
+                <span>標準</span>
+                <span>note</span>
+              </div>
+              <p class="hint" id="densityHint">noteで読み落としにくいよう、句点ごとの余白を標準にします。</p>
+            </div>
+
+            <div class="control-group">
+              <h2>段落</h2>
+              <label class="check-row">
+                <input id="blankAfterHeading" type="checkbox" checked />
+                <span>見出し下を空ける</span>
+              </label>
+              <label class="check-row">
+                <input id="splitJapanesePeriod" type="checkbox" checked />
+                <span>句点改行を段落化</span>
+              </label>
+              <label class="check-row">
+                <input id="protectLists" type="checkbox" checked />
+                <span>リストを保持</span>
+              </label>
+            </div>
+
+            <div class="control-group">
+              <h2>校正</h2>
+              <label class="check-row">
+                <input id="viewNoteEditor" type="checkbox" checked />
+                <span>noteの編集者</span>
+              </label>
+              <label class="check-row">
+                <input id="viewMobileNovelist" type="checkbox" checked />
+                <span>スマホ小説家</span>
+              </label>
+              <label class="check-row">
+                <input id="viewNovelEditor" type="checkbox" checked />
+                <span>小説の編集者</span>
+              </label>
+              <button id="inspectBtn" class="ghost wide" type="button">気になる箇所</button>
+              <div class="status-list" id="issueList" aria-live="polite"></div>
+            </div>
+          </aside>
+
+          <div class="pane output-pane">
+            <div class="pane-head">
+              <h2>コピー用</h2>
+              <div class="meter" id="outputMeter">0字 / 0段落</div>
+            </div>
+            <textarea
+              id="outputText"
+              spellcheck="true"
+              placeholder="整形後の本文"
+            ></textarea>
+          </div>
+        </section>
+
+        <section class="preview-band" aria-label="プレビュー">
+          <div class="preview-head">
+            <h2>プレビュー</h2>
+            <label class="preview-width-control">
+              <span id="previewWidthValue">55%</span>
+              <input id="previewWidth" type="range" min="35" max="65" step="1" value="55" />
+            </label>
+            <div class="copy-state" id="copyState"></div>
+          </div>
+          <div class="preview-comparison">
+            <div class="device-preview desktop-preview">
+              <div class="device-head">
+                <span>PC</span>
+                <span>wide</span>
+              </div>
+              <article id="previewDesktop" class="preview"></article>
+            </div>
+            <div class="device-preview mobile-preview">
+              <div class="device-head">
+                <span>スマホ</span>
+                <span>390px</span>
+              </div>
+              <article id="previewMobile" class="preview"></article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
