@@ -260,8 +260,6 @@
 
   function saveState() {
     const payload = {
-      source: sourceText.value,
-      output: outputText.value,
       blankAfterHeading: blankAfterHeading.checked,
       splitJapanesePeriod: splitJapanesePeriod.checked,
       protectLists: protectLists.checked,
@@ -441,8 +439,8 @@
   function loadState() {
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      sourceText.value = saved.source || "";
-      outputText.value = saved.output || saved.source || "";
+      sourceText.value = "";
+      outputText.value = "";
       blankAfterHeading.checked = saved.blankAfterHeading !== false;
       splitJapanesePeriod.checked = saved.splitJapanesePeriod !== false;
       protectLists.checked = saved.protectLists !== false;
